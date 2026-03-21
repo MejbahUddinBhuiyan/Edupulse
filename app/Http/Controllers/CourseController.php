@@ -14,16 +14,19 @@ class CourseController extends Controller
         return view('courses.index', compact('courses'));
     }
 
-    public function create()
-    {
-        return view('courses.create');
-    }
+public function create()
+{
+    $categories = \App\Models\Category::all();
+    return view('courses.create', compact('categories'));
+    
+}
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255|unique:courses,title',
             'description' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $slug = Str::slug($request->title);
@@ -39,6 +42,7 @@ class CourseController extends Controller
             'title' => $request->title,
             'slug' => $slug,
             'description' => $request->description,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('courses.index')->with('success', 'Course created successfully.');
@@ -49,10 +53,11 @@ class CourseController extends Controller
         return view('courses.show', compact('course'));
     }
 
-    public function edit(Course $course)
-    {
-        return view('courses.edit', compact('course'));
-    }
+public function edit(Course $course)
+{
+    $categories = \App\Models\Category::all();
+    return view('courses.edit', compact('course', 'categories'));
+}
 
     public function update(Request $request, Course $course)
     {
@@ -74,6 +79,8 @@ class CourseController extends Controller
             'title' => $request->title,
             'slug' => $slug,
             'description' => $request->description,
+            'category_id' => 'nullable|exists:categories,id',
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('courses.index')->with('success', 'Course updated successfully.');

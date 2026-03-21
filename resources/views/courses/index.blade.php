@@ -21,6 +21,7 @@
             <table class="min-w-full divide-y divide-sky-100">
                 <thead class="bg-sky-50">
                     <tr>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Title</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Slug</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Description</th>
@@ -30,6 +31,10 @@
                 <tbody class="divide-y divide-sky-50 bg-white">
                     @forelse($courses as $course)
                         <tr>
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                  {{ $course->category->name ?? 'No Category' }}
+                            </td>
+
                             <td class="px-6 py-4 font-medium text-gray-900">{{ $course->title }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">{{ $course->slug }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">

@@ -27,6 +27,21 @@
                 @enderror
             </div>
 
+
+            <div>
+                <label class="edu-label">Category</label>
+
+                <select name="category_id" class="edu-input">
+                     <option value="">Select Category</option>
+
+                     @foreach($categories as $category)
+                         <option value="{{ $category->id }}">
+                              {{ $category->name }}
+                         </option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="flex gap-3">
                 <button type="submit" class="edu-btn">Save Course</button>
                 <a href="{{ route('courses.index') }}" class="edu-btn-secondary">Cancel</a>
