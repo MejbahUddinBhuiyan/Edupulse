@@ -21,29 +21,57 @@
             <table class="min-w-full divide-y divide-sky-100">
                 <thead class="bg-sky-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Title</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
+
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Slug</th>
+                        
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Description</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
+
                         <th class="px-6 py-3 text-right text-sm font-semibold text-gray-700">Actions</th>
                     </tr>
+
                 </thead>
                 <tbody class="divide-y divide-sky-50 bg-white">
                     @forelse($courses as $course)
                         <tr>
+                            <td class="px-6 py-4 font-medium text-gray-900">{{ $course->title }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">
                                   {{ $course->category->name ?? 'No Category' }}
                             </td>
-
-                            <td class="px-6 py-4 font-medium text-gray-900">{{ $course->title }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">{{ $course->slug }}</td>
                             <td class="px-6 py-4 text-sm text-gray-600">
                                 {{ \Illuminate\Support\Str::limit($course->description, 60) }}
                             </td>
                             <td class="px-6 py-4">
+    @if($course->is_published)
+        <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+            Published
+        </span>
+    @else
+        <span class="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">
+            Unpublished
+        </span>
+    @endif
+</td>
+                            <td class="px-6 py-4">
                                 <div class="flex justify-end gap-2">
                                     <a href="{{ route('courses.show', $course) }}" class="edu-btn-secondary">View</a>
+                                    <form action="{{ route('courses.toggle-publish', $course) }}" method="POST">
+    @csrf
+    @method('PATCH')
+
+    <button type="submit"
+        class="inline-flex items-center justify-center rounded-lg border px-4 py-2 text-sm font-medium transition duration-200
+        {{ $course->is_published
+            ? 'border-amber-200 bg-white text-amber-700 hover:bg-amber-50'
+            : 'border-green-200 bg-white text-green-700 hover:bg-green-50' }}">
+        {{ $course->is_published ? 'Unpublish' : 'Publish' }}
+    </button>
+</form>
                                     <a href="{{ route('courses.edit', $course) }}" class="edu-btn-secondary">Edit</a>
+                                    
 
                                     <form action="{{ route('courses.destroy', $course) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
                                         @csrf
@@ -54,6 +82,7 @@
                                     </form>
                                 </div>
                             </td>
+                            
                         </tr>
                     @empty
                         <tr>

@@ -14,6 +14,16 @@ class CourseController extends Controller
         return view('courses.index', compact('courses'));
     }
 
+public function togglePublish(Course $course)
+{
+    $course->update([
+        'is_published' => ! $course->is_published,
+    ]);
+
+    return redirect()->route('courses.index')
+        ->with('success', 'Course publish status updated successfully.');
+}
+
 public function create()
 {
     $categories = \App\Models\Category::all();

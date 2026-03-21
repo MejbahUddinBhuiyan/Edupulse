@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 
 Route::resource('courses', CourseController::class);
-
+Route::patch('/courses/{course}/toggle-publish', [CourseController::class, 'togglePublish'])->name('courses.toggle-publish');
 Route::get('/', function () {
     return view('welcome');
 });
