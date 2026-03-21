@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-white text-gray-900 antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-semibold text-gray-900;
+    }
+
+    a {
+        @apply transition duration-200;
+    }
+}
+
+@layer components {
+    .edu-container {
+        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .edu-card {
+        @apply rounded-2xl border border-sky-100 bg-white shadow-sm;
+    }
+
+    .edu-card-soft {
+        @apply rounded-2xl border border-white/40 bg-white/80 backdrop-blur-md shadow-lg;
+    }
+
+    .edu-btn {
+        @apply inline-flex items-center justify-center rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-200 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-300;
+    }
+
+    .edu-btn-secondary {
+        @apply inline-flex items-center justify-center rounded-lg border border-sky-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition duration-200 hover:bg-sky-50 focus:outline-none focus:ring-2 focus:ring-sky-200;
+    }
+
+    .edu-input {
+        @apply w-full rounded-xl border border-sky-100 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100;
+    }
+
+    .edu-label {
+        @apply mb-2 block text-sm font-medium text-gray-700;
+    }
+
+    .edu-page-title {
+        @apply text-3xl font-bold tracking-tight text-gray-900;
+    }
+
+    .edu-subtitle {
+        @apply text-sm text-gray-600;
+    }
+}
