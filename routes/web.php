@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+use App\Http\Controllers\CategoryController;
+
+Route::resource('categories', CategoryController::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
