@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ReviewController;
 Route::post('/courses/{course}/reviews', [ReviewController::class, 'store'])->name('courses.reviews.store');
@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 
 use App\Http\Controllers\CategoryController;
-
+Route::resource('users', UserController::class)->except(['show']);
 Route::resource('categories', CategoryController::class);
 
 Route::get('/dashboard', function () {
