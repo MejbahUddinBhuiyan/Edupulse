@@ -41,6 +41,21 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+    <label class="edu-label">Prerequisite Courses</label>
+
+    <select name="prerequisites[]" multiple class="edu-input">
+        @foreach($courses as $course)
+            <option value="{{ $course->id }}">
+                {{ $course->title }}
+            </option>
+        @endforeach
+    </select>
+
+    <p class="text-xs text-gray-500 mt-1">
+        Hold Ctrl (Windows) or Cmd (Mac) to select multiple.
+    </p>
+</div>
 
             <div class="flex gap-3">
                 <button type="submit" class="edu-btn">Save Course</button>

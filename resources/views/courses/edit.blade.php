@@ -43,7 +43,18 @@
                     @endforeach
                 </select>
             </div>
+<div>
+    <label class="edu-label">Prerequisite Courses</label>
 
+    <select name="prerequisites[]" multiple class="edu-input">
+        @foreach($courses as $c)
+            <option value="{{ $c->id }}"
+                {{ $course->prerequisites->contains($c->id) ? 'selected' : '' }}>
+                {{ $c->title }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
             <div class="flex gap-3">
                 <button type="submit" class="edu-btn">Update Course</button>
