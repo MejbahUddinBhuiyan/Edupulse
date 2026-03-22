@@ -1,12 +1,16 @@
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <nav x-data="{ open: false }" class="border-b border-sky-100 bg-white shadow-sm">
     <div class="edu-container">
         <div class="flex h-16 justify-between">
             <div class="flex">
                 <div class="flex shrink-0 items-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-sky-600">
-                        <x-application-logo class="block h-9 w-auto fill-current text-sky-600" />
-                        <span class="text-lg font-semibold text-gray-900">Edupulse</span>
-                    </a>
+                <a href="/" class="flex items-center gap-2 text-2xl font-bold text-sky-600">
+                    <span class="material-icons text-3xl">school</span>
+                    <span>Edupulse</span>
+                </a>
                 </div>
 
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">

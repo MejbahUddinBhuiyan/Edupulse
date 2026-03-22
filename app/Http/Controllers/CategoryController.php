@@ -72,7 +72,8 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated.');
+        return redirect()->route('categories.index')
+        ->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
