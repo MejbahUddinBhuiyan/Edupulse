@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Quiz;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class Course extends Model
 {
     use HasFactory;
@@ -22,7 +22,10 @@ class Course extends Model
 {
     return $this->belongsTo(Category::class);
 }
-
+public function quizzes(): HasMany
+{
+    return $this->hasMany(Quiz::class);
+}
 public function reviews()
 {
     return $this->hasMany(Review::class);

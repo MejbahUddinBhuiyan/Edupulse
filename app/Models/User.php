@@ -6,7 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Quiz;
+use App\Models\QuizAttempt;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -55,4 +57,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Review::class);
     }
+    public function createdQuizzes(): HasMany
+{
+    return $this->hasMany(Quiz::class, 'created_by');
+}
+
+public function quizAttempts(): HasMany
+{
+    return $this->hasMany(QuizAttempt::class, 'user_id');
+}
+
+public function gradedAttempts(): HasMany
+{
+    return $this->hasMany(QuizAttempt::class, 'graded_by');
+}
 }

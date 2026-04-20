@@ -13,27 +13,43 @@
                 </a>
                 </div>
 
-                <div class="hidden space-x-8 sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        Dashboard
-                    </x-nav-link>
+ <div class="hidden space-x-8 sm:ms-10 sm:flex">
+    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        Dashboard
+    </x-nav-link>
 
-                    <x-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
-                        Courses
-                    </x-nav-link>
+    <x-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+        Courses
+    </x-nav-link>
 
-                    @auth
-                        @if(auth()->user()->isAdmin())
-                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
-                                Categories
-                            </x-nav-link>
+    @auth
+        <x-nav-link :href="route('assessment.quizzes.index')" :active="request()->routeIs('assessment.quizzes.*')">
+            Quizzes
+        </x-nav-link>
 
-                            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                                Users
-                            </x-nav-link>
-                        @endif
-                    @endauth
-                </div>
+        @if(auth()->user()->role === 'student')
+            <x-nav-link :href="route('assessment.attempts.my')" :active="request()->routeIs('assessment.attempts.my') || request()->routeIs('assessment.attempts.show')">
+                My Attempts
+            </x-nav-link>
+        @endif
+
+        @if(auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
+            <x-nav-link :href="route('assessment.attempts.index')" :active="request()->routeIs('assessment.attempts.index') || request()->routeIs('assessment.attempts.review')">
+                All Attempts
+            </x-nav-link>
+        @endif
+
+        @if(auth()->user()->isAdmin())
+            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                Categories
+            </x-nav-link>
+
+            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                Users
+            </x-nav-link>
+        @endif
+    @endauth
+</div>
             </div>
 
             <div class="hidden sm:ms-6 sm:flex sm:items-center">
@@ -55,13 +71,12 @@
                             Profile
                         </x-dropdown-link>
 
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                Log Out
-                            </x-dropdown-link>
-                        </form>
+      <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-sky-50">
+        Log Out
+    </button>
+</form>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -78,27 +93,43 @@
     </div>
 
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden border-t border-sky-100 bg-white sm:hidden">
-        <div class="space-y-1 pb-3 pt-2">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Dashboard
+<div class="space-y-1 pb-3 pt-2">
+    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        Dashboard
+    </x-responsive-nav-link>
+
+    <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+        Courses
+    </x-responsive-nav-link>
+
+    @auth
+        <x-responsive-nav-link :href="route('assessment.quizzes.index')" :active="request()->routeIs('assessment.quizzes.*')">
+            Quizzes
+        </x-responsive-nav-link>
+
+        @if(auth()->user()->role === 'student')
+            <x-responsive-nav-link :href="route('assessment.attempts.my')" :active="request()->routeIs('assessment.attempts.my') || request()->routeIs('assessment.attempts.show')">
+                My Attempts
+            </x-responsive-nav-link>
+        @endif
+
+        @if(auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
+            <x-responsive-nav-link :href="route('assessment.attempts.index')" :active="request()->routeIs('assessment.attempts.index') || request()->routeIs('assessment.attempts.review')">
+                All Attempts
+            </x-responsive-nav-link>
+        @endif
+
+        @if(auth()->user()->isAdmin())
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                Categories
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
-                Courses
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                Users
             </x-responsive-nav-link>
-
-            @auth
-                @if(auth()->user()->isAdmin())
-                    <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
-                        Categories
-                    </x-responsive-nav-link>
-
-                    <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                        Users
-                    </x-responsive-nav-link>
-                @endif
-            @endauth
-        </div>
+        @endif
+    @endauth
+</div>
 
         <div class="border-t border-sky-100 pb-1 pt-4">
             <div class="px-4">
@@ -111,13 +142,12 @@
                     Profile
                 </x-responsive-nav-link>
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        Log Out
-                    </x-responsive-nav-link>
-                </form>
+        <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-sky-50">
+        Log Out
+    </button>
+</form>
             </div>
         </div>
     </div>
