@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\StudentPerformance;
 use App\Models\TopicPerformance;
 use App\Models\Recommendation;
+use App\Models\CourseEnrollment;
 class Course extends Model
 {
     use HasFactory;
@@ -77,5 +78,9 @@ public function topicPerformances()
 public function recommendations()
 {
     return $this->hasMany(Recommendation::class);
+}
+public function enrollments()
+{
+    return $this->hasMany(CourseEnrollment::class);
 }
 }

@@ -12,6 +12,7 @@ use App\Models\QuizAttempt;
 use App\Models\StudentPerformance;
 use App\Models\TopicPerformance;
 use App\Models\Recommendation;
+use App\Models\CourseEnrollment;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -87,5 +88,9 @@ public function topicPerformances()
 public function recommendations()
 {
     return $this->hasMany(Recommendation::class);
+}
+public function enrollments()
+{
+    return $this->hasMany(CourseEnrollment::class);
 }
 }

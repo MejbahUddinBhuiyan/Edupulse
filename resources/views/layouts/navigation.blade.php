@@ -34,6 +34,9 @@
             <x-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
                 AI Dashboard
             </x-nav-link>
+            <x-nav-link :href="route('analytics.student')" :active="request()->routeIs('analytics.student')">
+    Analytics
+</x-nav-link>
         @endif
 
         @if(auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
@@ -43,6 +46,9 @@
             <x-nav-link :href="route('teacher.performance')" :active="request()->routeIs('teacher.performance')">
                 Student AI Tracker
             </x-nav-link>
+            <x-nav-link :href="route('analytics.courses')" :active="request()->routeIs('analytics.courses')">
+    Course Analytics
+</x-nav-link>
         @endif
 
         @if(auth()->user()->isAdmin())
@@ -120,6 +126,9 @@
             <x-responsive-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
                 AI Dashboard
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('analytics.student')" :active="request()->routeIs('analytics.student')">
+    Analytics
+</x-responsive-nav-link>
         @endif
 
         @if(auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
@@ -129,6 +138,9 @@
             <x-responsive-nav-link :href="route('teacher.performance')" :active="request()->routeIs('teacher.performance')">
                 Student AI Tracker
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('analytics.courses')" :active="request()->routeIs('analytics.courses')">
+    Course Analytics
+</x-responsive-nav-link>
         @endif
 
         @if(auth()->user()->isAdmin())

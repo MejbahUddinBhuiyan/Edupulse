@@ -7,7 +7,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Personalization\StudentDashboardController;
 use App\Http\Controllers\Personalization\TeacherPerformanceController;
-
+use App\Http\Controllers\Analytics\AnalyticsController;
+use App\Http\Controllers\Analytics\ReportController;
 
 Route::post('/courses/{course}/reviews', [ReviewController::class, 'store'])->name('courses.reviews.store');
 Route::resource('courses', CourseController::class);
@@ -61,9 +62,30 @@ Route::middleware(['auth'])->prefix('assessment')->name('assessment.')->group(fu
     Route::post('attempts/{attempt}/grade', [QuizAttemptController::class, 'grade'])->name('attempts.grade');
 });
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $user = auth()->user();
 
+    $stats = [];
+
+    if ($user->role === 'student') {
+        $stats = [
+            'total_courses' => $user->enrollments()->count(),
+            'total_attempts' => $user->quizAttempts()->count(),
+            'avg_completion' => round((float) $user->enrollments()->avg('completion_percentage'), 2),
+            'avg_score' => round((float) $user->studentPerformances()->avg('average_score'), 2),
+        ];
+    }
+
+    if (in_array($user->role, ['teacher', 'admin'])) {
+        $stats = [
+            'total_courses' => \App\Models\Course::count(),
+            'total_quizzes' => \App\Models\Quiz::count(),
+            'total_attempts' => \App\Models\QuizAttempt::count(),
+            'total_enrollments' => \App\Models\CourseEnrollment::count(),
+        ];
+    }
+
+    return view('dashboard', compact('stats'));
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -81,3 +103,28 @@ use App\Http\Controllers\Personalization\RecommendationController;
 
 Route::post('/recommendations/{recommendation}/read', [RecommendationController::class, 'markAsRead'])
     ->name('recommendations.read');
+
+Route::get('/analytics/student', [AnalyticsController::class, 'studentDashboard'])
+    ->name('analytics.student');
+
+Route::get('/analytics/courses', [AnalyticsController::class, 'courseAnalytics'])
+    ->name('analytics.courses');    
+
+Route::get('/reports/students/csv', [ReportController::class, 'exportStudentCsv'])
+    ->name('reports.students.csv');
+
+Route::get('/reports/courses/csv', [ReportController::class, 'exportCourseCsv'])
+    ->name('reports.courses.csv');  
+    
+Route::get('/reports/students/pdf', [ReportController::class, 'exportStudentPdf'])
+    ->name('reports.students.pdf');
+
+Route::get('/reports/courses/pdf', [ReportController::class, 'exportCoursePdf'])
+    ->name('reports.courses.pdf');
+
+
+Route::get('/reports/students/pdf', [ReportController::class, 'exportStudentPdf'])
+    ->name('reports.students.pdf');
+
+Route::get('/reports/courses/pdf', [ReportController::class, 'exportCoursePdf'])
+    ->name('reports.courses.pdf');        
