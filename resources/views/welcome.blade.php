@@ -42,7 +42,7 @@
                             Welcome to <span class="text-sky-600">Edupulse</span>
                         </h1>
                         <p class="mt-5 max-w-xl text-lg text-gray-600">
-                            A formal and user-friendly learning platform that manages courses, assessments, personalized recommendations, and student performance analytics.
+                            A user-friendly learning platform that manages courses, assessments, personalized recommendations, and student performance analytics.
                         </p>
 
                         <div class="mt-8 flex flex-wrap gap-4">
