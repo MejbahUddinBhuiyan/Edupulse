@@ -11,8 +11,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm install
 RUN npm run build
 
-RUN php artisan config:clear
-RUN php artisan cache:clear
+
 
 RUN chmod -R 775 storage bootstrap/cache
 
