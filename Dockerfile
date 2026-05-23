@@ -1,13 +1,19 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM webdevops/php-nginx:8.2
 
-WORKDIR /var/www/html
+WORKDIR /app
 
-COPY . .
+COPY . /app
+
+RUN apt-get update && apt-get install -y nodejs npm
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN npm install && npm run build
+RUN npm install
+RUN npm run build
+
+RUN php artisan config:clear
+RUN php artisan cache:clear
 
 RUN chmod -R 775 storage bootstrap/cache
 
-CMD php artisan migrate --force && php artisan storage:link && /start.sh
+EXPOSE 80
