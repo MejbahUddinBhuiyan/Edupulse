@@ -13,7 +13,7 @@ use App\Models\StudentPerformance;
 use App\Models\TopicPerformance;
 use App\Models\Recommendation;
 use App\Models\CourseEnrollment;
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
