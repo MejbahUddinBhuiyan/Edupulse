@@ -8,22 +8,19 @@ COPY . /app
 
 # Install Node.js 20
 RUN apt-get update && apt-get install -y curl
-
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-
 RUN apt-get install -y nodejs
 
-# Verify node version
 RUN node -v
+RUN npm -v
 
-# Install PHP deps
 RUN composer install --no-dev --optimize-autoloader
 
-# Install frontend deps
 RUN npm install
-
-# Build Vite assets
 RUN npm run build
+
+RUN ls -la public
+RUN ls -la public/build
 
 # Laravel permissions
 RUN mkdir -p storage/logs
