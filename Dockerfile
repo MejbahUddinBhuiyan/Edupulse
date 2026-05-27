@@ -19,6 +19,10 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm install
 RUN npm run build
 
+RUN php artisan view:clear
+RUN php artisan config:clear
+RUN php artisan route:clear
+
 RUN ls -la public
 RUN ls -la public/build
 
