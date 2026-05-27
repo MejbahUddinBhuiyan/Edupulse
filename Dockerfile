@@ -6,14 +6,23 @@ ENV WEB_DOCUMENT_ROOT=/app/public
 
 COPY . /app
 
-RUN apt-get update && apt-get install -y nodejs npm
+# Install Node.js 20
+RUN apt-get update && apt-get install -y curl
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+
+RUN apt-get install -y nodejs
+
+# Install PHP deps
 RUN composer install --no-dev --optimize-autoloader
 
+# Install frontend deps
 RUN npm install
+
+# Build Vite assets
 RUN npm run build
 
-# Fix Laravel permissions
+# Laravel permissions
 RUN mkdir -p storage/logs
 RUN touch storage/logs/laravel.log
 
