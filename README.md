@@ -4,12 +4,15 @@ An AI-powered educational platform built with **Laravel 12**, designed to enhanc
 
 ---
 
-# 🌐 Live Demo
+## 🌐 Live Deployment
 
-🔗 https://edupulse-4vk1.onrender.com
+**Live Website:**  
+https://edupulse.mejbahuddin.xyz
+
+**Previous Render Deployment:**  
+https://edupulse-4vk1.onrender.com
 
 ---
-
 # 📌 Features
 
 ## 👨‍🎓 Authentication & User Roles
